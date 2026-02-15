@@ -2,8 +2,6 @@
 
 A modern, scalable microservices project demonstrating the **API Gateway Pattern** using Python, FastAPI, and JWT authentication. The system is designed to handle student and course management through a centralized entry point.
 
-## 🚀 Architecture Overview
-
 # 🚀 Modular API Gateway & Microservices (FastAPI)
 
 This project demonstrates a scalable **Microservices Architecture** using an **API Gateway** pattern. [cite_start]It features centralized authentication, domain-specific modular routing, and cross-cutting concerns like logging and error handling. [cite: 7, 10, 377]
@@ -39,38 +37,34 @@ microservices-fastapi/
 
 This project consists of three independent services working together:
 
-* **API Gateway (Port 8000):** The single entry point. [cite_start]Handles authentication, request routing, and logging[cite: 374, 377, 403].
-* [cite_start]**Student Microservice (Port 8001):** Manages student records and profiles[cite: 173, 220].
-* [cite_start]**Course Microservice (Port 8002):** Manages academic course data[cite: 399].
-
-
-
-[Image of microservices architecture with API gateway]
-
+* **API Gateway (Port 8000):** The single entry point. Handles authentication, request routing, and logging[cite: 374, 377, 403].
+* **Student Microservice (Port 8001):** Manages student records and profiles
+* **Course Microservice (Port 8002):** Manages academic course data
+  
 
 ## 🛠️ Tech Stack
 
-* [cite_start]**Language:** Python 3.8+ [cite: 12]
-* [cite_start]**Framework:** FastAPI [cite: 13]
-* [cite_start]**ASGI Server:** Uvicorn [cite: 14]
-* [cite_start]**Authentication:** JWT (JSON Web Tokens) 
-* [cite_start]**Asynchronous Client:** HTTPx (for service-to-service communication) [cite: 15]
-
+* **Language:** Python 3.8+ [cite: 12]
+* **Framework:** FastAPI [cite: 13]
+* **ASGI Server:** Uvicorn [cite: 14]
+* **Authentication:** JWT (JSON Web Tokens) 
+* **Asynchronous Client:** HTTPx (for service-to-service communication) 
+  
 ## 📥 Getting Started
 
 ### 1. Prerequisites
-[cite_start]Ensure you have Python installed on your system[cite: 23].
+Ensure you have Python installed on your system[cite: 23].
 
 ### 2. Installation
 Clone the repository and set up a virtual environment:
 
 ```bash
 # Create and activate virtual environment
-[cite_start]python -m venv venv [cite: 55]
-[cite_start]source venv/bin/activate  # On Windows use: venv\Scripts\activate [cite: 58, 60]
+python -m venv venv 
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
 # Install dependencies
-[cite_start]pip install -r requirements.txt [cite: 69]
+pip install -r requirements.txt
 ```
 
 ### 3. Running the Services
