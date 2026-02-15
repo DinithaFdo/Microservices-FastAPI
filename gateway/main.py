@@ -1,6 +1,6 @@
 import os
 import jwt
-import datetime
+import time
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
@@ -61,6 +61,18 @@ async def forward_request(service: str, path: str, method: str, **kwargs) -> Any
             raise HTTPException(
                 status_code=503, detail=f"Service unavailable: {str(e)}"
             )
+
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    duration = time.time() - start_time
+    print(
+        f"LOG: {request.method} {request.url.path} - Status: {response.status_code} - Time: {duration:.4f}s"
+    )
+
+    return response
 
 
 @app.get("/")
