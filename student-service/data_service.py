@@ -9,21 +9,21 @@ class StudentMockDataService:
                 name="John Doe",
                 age=20,
                 email="john@example.com",
-                course="Computer Science"
+                course="Computer Science",
             ),
             Student(
                 id=2,
                 name="Jane Smith",
                 age=22,
                 email="jane@example.com",
-                course="Information Technology"
+                course="Information Technology",
             ),
             Student(
                 id=3,
                 name="Bob Johnson",
                 age=21,
                 email="bob@example.com",
-                course="Software Engineering"
+                course="Software Engineering",
             ),
         ]
         self.next_id = 4
@@ -35,10 +35,7 @@ class StudentMockDataService:
         return next((s for s in self.students if s.id == student_id), None)
 
     def add_student(self, student_data):
-        new_student = Student(
-            id=self.next_id,
-            **student_data.dict()
-        )
+        new_student = Student(id=self.next_id, **student_data.dict())
         self.students.append(new_student)
         self.next_id += 1
         return new_student
