@@ -1,12 +1,34 @@
-from fastapi import FastAPI, HTTPException, Request
+import os
+import jwt
+import datetime
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
 import httpx
 from typing import Any
+
+SECRET_KEY = "my_super_secret_key"
+ALGORITHM = "HS256"
+security = HTTPBearer()
+
+# Mock user for testing
+USER_DATA = {"username": "admin", "password": "password123"}
 
 app = FastAPI(title="API Gateway", version="1.0.0")
 
 # Service URLs
 SERVICES = {"student": "http://localhost:8001", "course": "http://localhost:8002"}
+
+
+def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 
 async def forward_request(service: str, path: str, method: str, **kwargs) -> Any:
@@ -53,7 +75,7 @@ def read_root():
 
 
 @app.get("/gateway/students")
-async def get_all_students():
+async def get_all_students(token: dict = Depends(verify_token)):
     """Get all students through gateway"""
     return await forward_request("student", "/api/students", "GET")
 
@@ -90,7 +112,7 @@ async def delete_student(student_id: int):
 
 
 @app.get("/gateway/courses")
-async def get_all_courses():
+async def get_all_courses(token: dict = Depends(verify_token)):
     return await forward_request("course", "/api/courses", "GET")
 
 
@@ -116,3 +138,18 @@ async def update_course(course_id: int, request: Request):
 @app.delete("/gateway/courses/{course_id}")
 async def delete_course(course_id: int):
     return await forward_request("course", f"/api/courses/{course_id}", "DELETE")
+
+
+@app.post("/login")
+def login(data: dict):
+    if (
+        data.get("username") == USER_DATA["username"]
+        and data.get("password") == USER_DATA["password"]
+    ):
+        payload = {
+            "sub": data["username"],
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+        return {"access_token": token, "token_type": "bearer"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")
