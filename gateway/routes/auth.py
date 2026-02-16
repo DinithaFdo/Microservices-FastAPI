@@ -3,7 +3,7 @@ import jwt
 import datetime
 from config import SECRET_KEY, ALGORITHM
 
-# We create a simple router for auth
+# Simple router for auth
 router = APIRouter(tags=["Authentication"])
 
 # Mock user for testing

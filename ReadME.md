@@ -4,7 +4,7 @@ A modern, scalable microservices project demonstrating the **API Gateway Pattern
 
 # 🚀 Modular API Gateway & Microservices (FastAPI)
 
-This project demonstrates a scalable **Microservices Architecture** using an **API Gateway** pattern. [cite_start]It features centralized authentication, domain-specific modular routing, and cross-cutting concerns like logging and error handling. [cite: 7, 10, 377]
+This project demonstrates a scalable **Microservices Architecture** using an **API Gateway** pattern. It features centralized authentication, domain-specific modular routing, and cross-cutting concerns like logging and error handling.
 
 ---
 
@@ -37,23 +37,23 @@ microservices-fastapi/
 
 This project consists of three independent services working together:
 
-* **API Gateway (Port 8000):** The single entry point. Handles authentication, request routing, and logging[cite: 374, 377, 403].
+* **API Gateway (Port 8000):** The single entry point. Handles authentication, request routing, and logging.
 * **Student Microservice (Port 8001):** Manages student records and profiles
 * **Course Microservice (Port 8002):** Manages academic course data
   
 
 ## 🛠️ Tech Stack
 
-* **Language:** Python 3.8+ [cite: 12]
-* **Framework:** FastAPI [cite: 13]
-* **ASGI Server:** Uvicorn [cite: 14]
+* **Language:** Python 3.8+
+* **Framework:** FastAPI
+* **ASGI Server:** Uvicorn
 * **Authentication:** JWT (JSON Web Tokens) 
 * **Asynchronous Client:** HTTPx (for service-to-service communication) 
   
 ## 📥 Getting Started
 
 ### 1. Prerequisites
-Ensure you have Python installed on your system[cite: 23].
+Ensure you have Python installed on your system.
 
 ### 2. Installation
 Clone the repository and set up a virtual environment:
@@ -61,7 +61,10 @@ Clone the repository and set up a virtual environment:
 ```bash
 # Create and activate virtual environment
 python -m venv venv 
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate  
+
+# On Windows use: 
+venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
